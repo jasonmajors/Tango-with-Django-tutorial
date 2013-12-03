@@ -1,0 +1,22 @@
+{% if category_list %}
+	<h3>Bleeper Categories</h3>
+	<ul>
+		{% for category in category_list %}
+		<li><a href="/rango/category/{{ category.url }}">{{ category.name }}</a>
+			{% if category.likes %}
+			({{ category.likes }} 
+				{% if category.likes > 1 %}
+					likes)
+				{% else %}
+					 like)
+				{% endif %}
+			{% else %}
+				(0 likes)	
+			{% endif %}			
+		</li>
+		{% endfor %}
+	</ul>
+{% else %}
+	<strong>No categories at present.</strong>
+{% endif %}	
+	
