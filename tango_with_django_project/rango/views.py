@@ -337,15 +337,18 @@ def auto_add_page(request):
 
 	if request.method == "GET":
 		category_id = request.GET['category_id']
-		url = request.GET['url']
 		title = request.GET['title']
-
+		url = request.GET['url']
+		
 		if category_id:
 			category = Category.objects.get(id=int(category_id))
 			p = Page.objects.get_or_create(category=category, title=title, url=url)
 			pages = Page.objects.filter(category=category).order_by('-views')
 
-	return render_to_response('rango/page_list.html', context_dict, context)
+			context_dict['pages'] = pages
+			context_dict['category'] = category
+
+	return render_to_response('rango/pages.html', context_dict, context)
 
 
 def get_pages(request, category_name_url):
