@@ -1,0 +1,54 @@
+{% extends 'rango/base.html' %}
+{% block title %}{% endblock %}
+{% block body_block %}
+{% load static %}
+<div class="hero-unit">
+	<h1>Ready to Bleep?</h1>
+	<p>Find, Add, Share and Bleep useful links and resources.</p>
+</div>
+<div class="row-fluid">
+	<div class="span5">
+		<h2>Top 5 Categories</h2>
+		{% if categories %}
+			<ul>
+				{% for category in categories %}
+				<li><a href="/rango/category/{{ category.url }}">{{ category.name }}</a> 
+					{% if category.likes %}
+						({{ category.likes }}
+						{% if category.likes > 1 %} 
+							likes)
+						{% else %}
+							like)
+						{% endif %}
+					{% endif %}		
+				</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<strong>No categories at present.</strong>
+		{% endif %}
+
+	</div>
+	<div class="span5">
+		<h2>Top 5 Pages</h2>
+		{% if pages %}
+			<ul>
+				{% for page in pages %}
+				<li><a href="/rango/goto/?page_id={{page.id}}">{{ page.title }}</a> - {{ page.category }} 
+					{% if page.views %}
+						({{ page.views }} 
+						{% if page.views > 1 %} 
+							views)
+						{% else %}
+							view)
+						{% endif %}	
+					{% endif %}	
+				</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<strong>No pages at present.</strong>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}

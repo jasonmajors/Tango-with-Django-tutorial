@@ -1,0 +1,32 @@
+{% extends 'rango/base.html' %}
+{% block title %}{{ category.name }}{% endblock %}
+{% load static %}
+{% block body_block %}
+
+<div class="hero-unit">
+{% if pages %}
+	<h3>{{category.name}} Pages</h3>
+	<ul>
+		{% for page in pages %}
+		<li><a href="/rango/goto/?page_id={{ page.id }}">{{ page.title }}</a>
+			{% if page.views %}
+			({{ page.views }} 
+				{% if page.views > 1 %}
+					views)
+				{% else %}
+					 view)
+				{% endif %}
+			{% else %}
+				(0 views)	
+			{% endif %}			
+		</li>
+		{% endfor %}
+	</ul>
+{% else %}
+	<strong>No pages at present.</strong>
+{% endif %}	
+{% if user.is_authenticated %}
+	</br ><a href="/rango/category/{{ category_name_url }}/add_page/">Add a Page</a>
+	{% endif %}
+</div>
+{% endblock %}
